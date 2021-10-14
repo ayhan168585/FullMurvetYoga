@@ -120,7 +120,7 @@ const Yoga = () => {
             <Filter>
               <FilterTitle>Uygulama tipi</FilterTitle>
               <FilterSize>
-                {(yoga.applicationtype||[]).map((a) => (
+                {yoga.applicationtype?.map((a) => (
                   <FilterPlaceOption key={a}>{a}</FilterPlaceOption>
                 ))}
               </FilterSize>
@@ -129,7 +129,7 @@ const Yoga = () => {
               <FilterTitle>Seviye</FilterTitle>
               <FilterSize>
                 {
-                  (yoga.level||[]).map((l)=>(
+                  yoga.level?.map((l)=>(
                     <FilterSizeOption key={l}>{l}</FilterSizeOption>
                   ))
                 }
