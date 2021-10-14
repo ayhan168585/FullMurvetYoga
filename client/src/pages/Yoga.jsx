@@ -94,6 +94,8 @@ const Yoga = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [yoga, setYoga] = useState({});
+  const [applicationtype, setApplicationtype] = useState("");
+  const [level, setLevel] = useState("");
 
   useEffect(() => {
     const getYoga = async () => {
@@ -104,6 +106,11 @@ const Yoga = () => {
     };
     getYoga();
   }, [id]);
+
+  const handleClick=()=>{
+    
+  }
+
   return (
     <Container>
       <Announcement />
@@ -119,7 +126,7 @@ const Yoga = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Uygulama tipi</FilterTitle>
-              <FilterSize>
+              <FilterSize onChange={(e)=>setApplicationtype(e.target.value)}>
                 {yoga.applicationtype?.map((a) => (
                   <FilterPlaceOption key={a}>{a}</FilterPlaceOption>
                 ))}
@@ -127,7 +134,7 @@ const Yoga = () => {
             </Filter>
             <Filter>
               <FilterTitle>Seviye</FilterTitle>
-              <FilterSize>
+              <FilterSize onChange={(e)=>setLevel(e.target.value)}>
                 {
                   yoga.level?.map((l)=>(
                     <FilterSizeOption key={l}>{l}</FilterSizeOption>
@@ -139,7 +146,7 @@ const Yoga = () => {
             </Filter>
           </FilterContainer>
           <AddContainer>
-            <Button>SEPETE EKLE</Button>
+            <Button onClick={handleClick}>SEPETE EKLE</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
