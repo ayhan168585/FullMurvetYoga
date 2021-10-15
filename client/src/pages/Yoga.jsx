@@ -7,6 +7,8 @@ import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
+import { addYoga } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 
@@ -96,6 +98,8 @@ const Yoga = () => {
   const [yoga, setYoga] = useState({});
   const [applicationtype, setApplicationtype] = useState("");
   const [level, setLevel] = useState("");
+  const dispatch = useDispatch();
+  const [quantity,setQuantity]=useState(1)
 
   useEffect(() => {
     const getYoga = async () => {
@@ -107,9 +111,9 @@ const Yoga = () => {
     getYoga();
   }, [id]);
 
-  const handleClick=()=>{
-    
-  }
+  const handleClick = () => {
+    dispatch(addYoga({ yoga,quantity,price:yoga.price*quantity }));
+  };
 
   return (
     <Container>
@@ -126,7 +130,7 @@ const Yoga = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Uygulama tipi</FilterTitle>
-              <FilterSize onChange={(e)=>setApplicationtype(e.target.value)}>
+              <FilterSize onChange={(e) => setApplicationtype(e.target.value)}>
                 {yoga.applicationtype?.map((a) => (
                   <FilterPlaceOption key={a}>{a}</FilterPlaceOption>
                 ))}
@@ -134,14 +138,10 @@ const Yoga = () => {
             </Filter>
             <Filter>
               <FilterTitle>Seviye</FilterTitle>
-              <FilterSize onChange={(e)=>setLevel(e.target.value)}>
-                {
-                  yoga.level?.map((l)=>(
-                    <FilterSizeOption key={l}>{l}</FilterSizeOption>
-                  ))
-                }
-              
-              
+              <FilterSize onChange={(e) => setLevel(e.target.value)}>
+                {yoga.level?.map((l) => (
+                  <FilterSizeOption key={l}>{l}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
