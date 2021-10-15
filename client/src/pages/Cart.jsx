@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 
-
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -49,7 +48,6 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
-
 `;
 
 const Info = styled.div`
@@ -139,14 +137,14 @@ const Button = styled.button`
 const Cart = () => {
   return (
     <Container>
-      <Navbar />
       <Announcement />
+      <Navbar />
       <Wrapper>
         <Title>SEPETİNİZ</Title>
         <Top>
-          <TopButton>ALIŞVERİŞE DEVAM ET</TopButton>
+          <TopButton>YOGA SEÇMEYE DEVAM ET</TopButton>
           <TopTexts>
-            <TopText>Alışveriş sepeti(2)</TopText>
+            <TopText>Yoga Alışveriş sepeti(2)</TopText>
             <TopText>İstek listeniz(0)</TopText>
           </TopTexts>
           <TopButton type="filled">ÖDEME YAP</TopButton>
@@ -169,7 +167,7 @@ const Cart = () => {
                 </Details>
               </YogaDetail>
               <PriceDetail>
-                <YogaPrice>$ 30</YogaPrice>
+                <YogaPrice>100,00 TL.</YogaPrice>
               </PriceDetail>
             </Yoga>
             <Hr />
@@ -189,29 +187,29 @@ const Cart = () => {
                 </Details>
               </YogaDetail>
               <PriceDetail>
-                <YogaPrice>$ 30</YogaPrice>
+                <YogaPrice>150,00 TL.</YogaPrice>
               </PriceDetail>
             </Yoga>
           </Info>
           <Summary>
-              <SummaryTitle>SİPARİŞ ÖZETİ</SummaryTitle>
-              <SummaryItem>
-                  <SummaryItemText>Ara Toplam</SummaryItemText>
-                  <SummaryItemPrice>250,00 TL.</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem>
-                  <SummaryItemText>İndirim Miktarı</SummaryItemText>
-                  <SummaryItemPrice>-50,00 TL.</SummaryItemPrice>
-              </SummaryItem>
-              <SummaryItem type="total">
-                  <SummaryItemText>Ödenecek Toplam</SummaryItemText>
-                  <SummaryItemPrice>-50,00 TL.</SummaryItemPrice>
-              </SummaryItem>
-              <Button>ÖDEME YAP</Button>
+            <SummaryTitle>SİPARİŞ ÖZETİ</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText>Ara Toplam</SummaryItemText>
+              <SummaryItemPrice>250,00 TL.</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemText>İndirim Miktarı</SummaryItemText>
+              <SummaryItemPrice>-50,00 TL.</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemText>Ödenecek Toplam</SummaryItemText>
+              <SummaryItemPrice>200,00 TL.</SummaryItemPrice>
+            </SummaryItem>
+            <Button>ÖDEME YAP</Button>
           </Summary>
         </Bottom>
       </Wrapper>
-      <Footer/>
+      <Footer />
     </Container>
   );
 };
