@@ -96,10 +96,10 @@ const Yoga = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [yoga, setYoga] = useState({});
-  const [applicationtype, setApplicationtype] = useState("");
-  const [level, setLevel] = useState("");
+  const [applicationtype, setApplicationtype] = useState("video");
+  const [level, setLevel] = useState("başlangıç");
   const dispatch = useDispatch();
-  const [quantity,setQuantity]=useState(1)
+  const quantity = 1;
 
   useEffect(() => {
     const getYoga = async () => {
@@ -112,7 +112,7 @@ const Yoga = () => {
   }, [id]);
 
   const handleClick = () => {
-    dispatch(addYoga({ yoga,quantity,price:yoga.price*quantity }));
+    dispatch(addYoga({ ...yoga, quantity, applicationtype, level }));
   };
 
   return (
@@ -130,6 +130,7 @@ const Yoga = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Uygulama tipi</FilterTitle>
+
               <FilterSize onChange={(e) => setApplicationtype(e.target.value)}>
                 {yoga.applicationtype?.map((a) => (
                   <FilterPlaceOption key={a}>{a}</FilterPlaceOption>
