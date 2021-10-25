@@ -64,12 +64,7 @@ const Desc = styled.p`
   font-size: 16px;
   letter-spacing: 3px;
 `;
-const Button = styled.button`
-  padding: 10px;
-  font-size: 20px;
-  background-color: transparent;
-  cursor: pointer;
-`;
+
 
 const Slider = () => {
     const[slideIndex,setSlideIndex]=useState(0);
@@ -97,7 +92,7 @@ if (direction==="left") {
             <Desc>
              {item.desc}
             </Desc>
-            <Button>SEPETE EKLE</Button>
+           
           </InfoContainer>
         </Slide>
           ))

@@ -64,6 +64,10 @@ const Link = styled.a`
   cursor: pointer;
 `;
 
+const Error=styled.span`
+color: red;
+`
+
 const Login = () => {
   const [username, SetUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -88,6 +92,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button onClick={handleClick} disabled={isFetching}>GİRİŞ</Button>
+          {error && <Error>Hata oluştu!</Error>}
           <Link>ŞİFREMİ UNUTTUM</Link>
           <Link>KAYIT OL</Link>
         </Form>

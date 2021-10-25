@@ -1,4 +1,4 @@
-import { ButtonGroup } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Info = styled.div`
@@ -72,7 +72,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const ActivityItem = ({ item }) => {
+const Activity = ({ item }) => {
   return (
     <Container>
       <Image src={item.img} />
@@ -84,13 +84,13 @@ const ActivityItem = ({ item }) => {
         </Time>
         <Desc>{item.desc.substring(0, 100)}</Desc>
         <Price>{item.price},00 TL.</Price>
-        <ButtonGroup disableElevation variant="contained">
+
+        <Link to={`/activity/${item._id}`}>
           <Button>Ayrıntılar</Button>
-          <Button>Etkinliğe katıl</Button>
-        </ButtonGroup>
+        </Link>
       </Info>
     </Container>
   );
 };
 
-export default ActivityItem;
+export default Activity;

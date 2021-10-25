@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -7,7 +7,9 @@ import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useHistory } from "react-router";
-const KEY=process.env.REACT_APP_STRIPE;
+import { userRequest } from "../requestMethods";
+import { Link } from "react-router-dom";
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 
@@ -85,6 +87,8 @@ const YogaName = styled.span``;
 const YogaId = styled.span``;
 
 const YogaApplicationType = styled.span``;
+const YogaLevel = styled.span``;
+
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -136,32 +140,31 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Cart = () => {
-  const cart = useSelector(state => state.cart)
-  const[stripeToken,setStripeToken]=useState(null)
-  const history=useHistory()
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useHistory();
 
-  const onToken=(token)=>{
-    setStripeToken(token)
-  }
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
 
-  useEffect(()=>{
-    const makeRequest=async()=>{
+  useEffect(() => {
+    const makeRequest = async () => {
       try {
-        const res=await userRequest("/checkout/payment",{
-          tokenId:stripeToken,
-          amount:cart.total *100,
-            
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken,
+          amount: cart.total * 100,
         });
-        history.push("/success",{data:res.data})
-      } catch (err) {
-        
-      }
-    }
-  },[stripeToken,cart.total,history]);
-  makeRequest();
+        history.push("/success", { data: res.data });
+      } catch (err) {}
+    };
+    stripeToken && cart.total >= 1 && makeRequest();
+  }, [stripeToken, cart.total, history]);
+
   return (
     <Container>
       <Announcement />
@@ -169,40 +172,53 @@ const Cart = () => {
       <Wrapper>
         <Title>SEPETİNİZ</Title>
         <Top>
+          <Link to="/">
           <TopButton>YOGA SEÇMEYE DEVAM ET</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Yoga Alışveriş sepeti(2)</TopText>
             <TopText>İstek listeniz(0)</TopText>
           </TopTexts>
+          <StripeCheckout
+              name="Mürvet'in Yoga Salonu"
+              image="https://res.cloudinary.com/dh70tt9xs/image/upload/v1633615357/woman-5485664_1280_xa6xea.png"
+              billingAddress
+              shippingAddress
+              description={`Ödeyeceğiniz Toplam Miktar ${cart.total},00 TL.`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
           <TopButton type="filled">ÖDEME YAP</TopButton>
+          </StripeCheckout>
         </Top>
         <Bottom>
           <Info>
-           { cart.yogas.map(yoga=>(
-            <Yoga>
-              <YogaDetail>
-                <Image src={yoga.img} />
-                <Details>
-                  <YogaName>
-                    <b>Yoga:</b> {yoga.title}
-                  </YogaName>
-                  <YogaId>
-                    <b>ID:</b> {yoga._id}
-                  </YogaId>
-                  <YogaApplicationType>
-                    <b>Uygulama Tipi:</b> {yoga.applicationtype}
-                  </YogaApplicationType>
-                </Details>
-              </YogaDetail>
-              <PriceDetail>
-                <YogaPrice>{yoga.price*yoga.quantity},00 TL.</YogaPrice>
-              </PriceDetail>
-            </Yoga>
-           
-           ))
-}
+            {cart.yogas?.map((yoga) => (
+              <Yoga key={yoga._id}>
+                <YogaDetail>
+                  <Image src={yoga.img} />
+                  <Details>
+                    <YogaName>
+                      <b>Yoga:</b> {yoga.title}
+                    </YogaName>
+                    <YogaId>
+                      <b>ID:</b> {yoga._id}
+                    </YogaId>
+                    <YogaApplicationType>
+                      <b>Uygulama Tipi:</b> {yoga.applicationtype}
+                    </YogaApplicationType>
+                    <YogaLevel>
+                      <b>Seviye:</b> {yoga.level}
+                    </YogaLevel>
+                  </Details>
+                </YogaDetail>
+                <PriceDetail>
+                  <YogaPrice>{yoga.price * yoga.quantity},00 TL.</YogaPrice>
+                </PriceDetail>
+              </Yoga>
+            ))}
             <Hr />
-            
           </Info>
           <Summary>
             <SummaryTitle>SİPARİŞ ÖZETİ</SummaryTitle>
@@ -219,16 +235,16 @@ const Cart = () => {
               <SummaryItemPrice>{cart.total},00 TL.</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-            name="Mürvet'in Yoga Salonu"
-            image="https://avatars.githubusercontent.com/u/1486366?v=4"
-            billingAddress
-            shippingAddress
-            description={`Ödeyeceğiniz Toplam Miktar ${cart.total},00 TL.`}
-            amount={cart.total*100}
-            token={onToken}
-            stripeKey={KEY}
+              name="Mürvet'in Yoga Salonu"
+              image="https://res.cloudinary.com/dh70tt9xs/image/upload/v1633615357/woman-5485664_1280_xa6xea.png"
+              billingAddress
+              shippingAddress
+              description={`Ödeyeceğiniz Toplam Miktar ${cart.total},00 TL.`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
             >
-            <Button>ÖDEME YAP</Button>
+              <Button>ÖDEME YAP</Button>
             </StripeCheckout>
           </Summary>
         </Bottom>

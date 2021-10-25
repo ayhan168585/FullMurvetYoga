@@ -15,13 +15,19 @@ const Container = styled.div`
 const Announcement = () => {
   const [announcements, setAnnouncements] = useState([]);
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/informs")
-      .then((res) => setAnnouncements(res.data));
+    const getInforms = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/informs");
+        setAnnouncements(res.data);
+      } catch (err) {
+      }
+    };
+    getInforms();
   }, []);
+
   return (
     <Container>
-      {(announcements||[]).map((item) => (
+      {announcements?.map((item) => (
         <InformItem item={item} key={item._id} />
       ))}
       {/* <b>Büyük İndirim ! :</b>

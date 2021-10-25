@@ -52,7 +52,7 @@ const Yogas = ({ type, filters, sort }) => {
     <Container>
       {type
         ? filteredYogas.map((item) => <Yoga item={item} key={item.id} />)
-        : yogas.slice(0, 10).map((item) => <Yoga item={item} key={item.id} />)}
+        : yogas.slice(0, 10).map((item) => <Yoga item={item} key={item._id} />)}
     </Container>
   );
 };

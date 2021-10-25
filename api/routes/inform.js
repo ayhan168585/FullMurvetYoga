@@ -53,7 +53,7 @@ router.put("/:id",verifyTokenAndAdmin,async(req,res)=>{
  
  //GET ALL INFORMS
  
- router.get("/",verifyTokenAndAdmin, async (req,res)=>{
+ router.get("/", async (req,res)=>{
      const query=req.query.new
      try {
         const informs=query? await Inform.find().sort({_id:-1}).limit(5):await Inform.find();

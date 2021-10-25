@@ -10,8 +10,8 @@ const cartSlice=createSlice({
     reducers:{
         addYoga:(state,action)=>{
             state.quantity+=1;
-            state.yogas.push(action.payload.yoga);
-            state.total+=action.payload.price;
+            state.yogas?.push(action.payload);
+            state.total+=action.payload.price*action.payload.quantity;
         }
     }
 
